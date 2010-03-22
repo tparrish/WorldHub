@@ -1,0 +1,19 @@
+<h2><%= @world.name %></h2>
+<div class="author">by <%= @world.author %></div>
+<div id="flashcontent">Please enable javascript to load the world</div>
+<script type="text/javascript">
+
+var flashvars = {
+  "base.url": "<%= @world.asset_uri %>",
+  "app.name": "<%= @world.slug %>"
+};
+
+var params = {
+  menu: "false",
+  wmode: "transparent",
+  allowScriptAccess:"always"
+};
+
+swfobject.embedSWF("/flash/platform.swf", "flashcontent", "100%", "100%", "10.0.0", "swf/expressInstall.swf", flashvars, params);
+
+</script>

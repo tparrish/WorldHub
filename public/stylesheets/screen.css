@@ -1,0 +1,78 @@
+html, body, table {
+	font-family: 'Lucida Sans Unicode', 'Lucida Grande', Tahoma, sans-serif;
+	color: #5F5F5F;
+	background-color: #E1E1E1;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.8em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-transform: uppercase;
+	color: black;
+	font-size: 1.6em;
+	line-height: 1.3em;
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	margin-top:5px;
+	padding-top:5px;
+}
+
+label {
+	font-size: 12px;
+	font-weight: bold;
+	padding-bottom: 3px;
+}
+
+form {
+	background-color: #F2F2F2;
+	padding: 15px;
+}
+
+input {
+	display: block;
+}
+
+input.submit {
+	margin-top: 30px;
+}
+
+a,
+a:active,
+a:visited {
+	color: #00113B;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #7A3838;
+}
+
+/* Header */
+#header {
+	background-image: url('http://dubitplatform.com/storage/Dubit%20Virtual%20World%20Platform.jpg');
+	background-repeat: no-repeat;
+	height: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 928px;
+}
+
+#header h1 {
+	display: none;
+}
+
+/* Content */
+
+#content {
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	width: 828px;
+	padding: 0 50px;
+}
+
+/* Forms */

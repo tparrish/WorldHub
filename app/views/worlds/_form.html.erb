@@ -1,0 +1,20 @@
+<div id="upload">
+	<% form_for(:world, :html => {:multipart => true}) do | f | %>
+		<%= f.error_messages %>
+		
+		<p>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+		</p>
+		<p>
+			<%= f.label :author %>
+			<%= f.text_field :author %>
+		</p>
+		<p>
+			<%= f.label :zip %>
+			<%= f.file_field :zip %>
+		</p>
+		
+		<%= f.submit("GO", :class => "submit") %>
+	<% end %>
+</div>

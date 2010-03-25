@@ -9,6 +9,9 @@ gem "rubyzip2"
 gem "randexp"
 gem "configr"
 gem "roxml"
+group :producton do
+	gem "mysql"
+end
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"

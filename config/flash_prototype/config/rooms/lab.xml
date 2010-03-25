@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ChatRoom id="lab" xmlns:xi="http://www.w3.org/2001/XInclude" startX="700" startY="470">
+
+	<Include href="config/rooms/includes/room_config.xml"/>
+
+	<MouseMovementController yVelocityScale="0.5" directions="12" id="movement"/>
+	<CollisionController target="{Room.player}" id="collision"/>
+	<Chat id="chatBox"/>
+	
+	<VerbController>
+		<Verb id="OnLookAt" name="Look at"/>
+		<Verb id="OnPickUp" name="Pick up"/>
+		<Verb id="OnTalkTo" name="Talk to"/>
+		<Verb id="OnUse" name="Use the"/>
+	</VerbController>
+
+	<Collision width="1400" height="546" id="walkableArea" solid="true">
+		<Image assetID="hit_asset" id="hitAreaImage"/>
+	</Collision>
+
+	<Filters id="playerFilters">
+		<DepthFilter id="playerDepthFilter" scaleBack="-1.1" scaleFront="0.48"/>
+		<MultiplyFilter id="lightFilter">
+			<Image id="light_filter" assetID="light_filter_asset"/>
+		</MultiplyFilter>
+	</Filters>
+
+	<Sounds target="{Room.player}" id="sounds">
+		<Sound id="background_music" assetID="background_music_asset" play="false" looping="true"/>
+	</Sounds>
+
+	<Scene id="scene" target="{Room.player}" viewportWidth="850" viewportHeight="445" width="1400" height="546">
+		
+		<DisplayObject2D id="sky" assetID="sky_asset"/>
+		<DisplayObject2D id="background" assetID="background_asset"/>
+		<DisplayObject2D id="click" assetID="click_asset" mouseEnabled="true" alpha="0"/>
+
+		<DisplayObject2D name="A pendulum" id="pendulum1" assetID="pendulum1_asset" x="418" y="395" originX="8" originY="17" verbEnabled="true" clickThrough="true" mouseEnabled="true" visible="true"/> 
+		<DisplayObject2D name="Scattered Books" id="books" assetID="books_asset" x="911" y="439" originX="328" originY="35" visible="false"/> 
+		<DisplayObject2D name="A shard from the window" id="Glass" assetID="glass_asset" x="659" y="422" originX="13" originY="18" verbEnabled="true" clickThrough="true" mouseEnabled="true" visible="false"/> 
+
+		<DisplayObject2D name="Blackboard" id="chalkboard" assetID="chalkboard_asset" x="119" y="429" originX="71" originY="195" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled A-D" id="bookshelf_one" assetID="books1_asset" x="270" y="393" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled E-H" id="bookshelf_two" assetID="books2_asset" x="620" y="402" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled I-L" id="bookshelf_three" assetID="books3_asset" x="683" y="402" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled M-P" id="bookshelf_four" assetID="books4_asset" x="799" y="402" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled Q-T" id="bookshelf_five" assetID="books5_asset" x="862" y="402" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled U-W" id="bookshelf_six" assetID="books6_asset" x="1168" y="416" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="Bookshelf labled X-Z" id="bookshelf_seven" assetID="books7_asset" x="1246" y="422" originX="29" originY="93" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="A grandfather clock?" id="Grandfather clock" assetID="timemachine_asset" x="744" y="403" originX="61" originY="209" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="The Fireplace" id="Fireplace" assetID="fireplace_asset" x="448" y="421" originX="36" originY="67" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		<DisplayObject2D name="A device of some sort" id="Cogs" assetID="cogs_asset" x="448" y="303" originX="49" originY="23" verbEnabled="true" clickThrough="true" mouseEnabled="true" alpha="0"/> 
+		
+		<ZSortingDisplayObject id="furniture">
+						
+			<DisplayObject2D name="A telescope!" id="telescope" assetID="telescope_asset" x="967" y="431" originX="115" originY="246" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A roaring fire" id="fire" assetID="fire_asset" x="412" y="395" originX="30" originY="55" scalex="0.7" scaley="0.7"/> 
+			<DisplayObject2D name="Burning embers" id="fireout" assetID="fireout_asset" x="412" y="395" originX="30" originY="55" scalex="0.7" scaley="0.7"/> 
+			<DisplayObject2D name="Karlheinz Fotheringay" id="doc" previewURL="images/lab/dochead.png" assetID="doc_asset" x="150" y="469" originX="102" originY="220" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A cog" id="cog1bg" assetID="cog1bg_asset" x="293" y="399" originX="29" originY="17" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A cog" id="cog2bg" assetID="cog2bg_asset" x="729" y="323" originX="11" originY="13" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A Gramophone" id="Gramophone" assetID="gramophone_asset" x="341" y="392" originX="22" originY="49" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A sproingy spring" id="Spring" assetID="spring_asset" x="252" y="399" originX="24" originY="16" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+
+			<DisplayObject2D name="Some moving cogs" id="cogsmove" assetID="cogsmove_asset" x="465" y="300" originX="167" originY="27" visible="false"/> 
+			<DisplayObject2D name="The missing cog" id="wallcog1" assetID="wallcog1_asset" x="460" y="297" originX="27" originY="27" visible="false"/> 
+			<DisplayObject2D name="The missing cog" id="wallcog2" assetID="wallcog2_asset" x="437" y="295" originX="12" originY="13" visible="false"/> 
+			<DisplayObject2D name="The missing cog" id="wallcog3" assetID="wallcog3_asset" x="477" y="303" originX="9" originY="15" visible="false"/> 
+			
+			<DisplayObject2D name="A pendulum" id="pendulum2" assetID="pendulum2_asset" x="1139" y="510" originX="88" originY="196" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A star Globe" id="globe" assetID="globe_asset" x="589" y="481" originX="64" originY="140" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="tools" id="tools" assetID="tools_asset" x="209" y="401" originX="26" originY="39" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="lens" id="lens1" assetID="lens1_asset" x="984" y="432" originX="13" originY="58" verbEnabled="true" clickThrough="true" mouseEnabled="true"/> 
+			<DisplayObject2D name="A pendulum" id="pendulumbase" assetID="pendulumbase_asset" x="1082" y="499" originX="44" originY="28"/> 
+			<DisplayObject2D name="globe2" id="globe2" assetID="globe2_asset" x="604" y="487" originX="63" originY="133" visible="false"/> 
+			<DisplayObject2D name="A Lens" id="wallLens1" assetID="WallLens1_asset" x="0" y="432" originX="0" originY="432" visible="false"/> 
+			<DisplayObject2D name="A Lens" id="wallLens2" assetID="WallLens2_asset" x="0" y="432" originX="0" originY="432" visible="false"/> 
+			<DisplayObject2D name="A Lens" id="wallLens3" assetID="WallLens3_asset" x="0" y="432" originX="0" originY="432" visible="false"/> 
+			<DisplayObject2D name="A pendulum" id="wallPendulum1" assetID="Wallpendulum1_asset" x="745" y="360" originX="15" originY="102" visible="false"/> 
+			<DisplayObject2D name="A pendulum" id="wallPendulum2" assetID="Wallpendulum2_asset" x="720" y="335" originX="7" originY="69" visible="false"/> 
+			<DisplayObject2D name="A pendulum" id="wallPendulum3" assetID="Wallpendulum3_asset" x="730" y="305" originX="13" originY="42" visible="false"/> 
+			<DisplayObject2D id="gramexp" culling="false" assetID="gramexp_asset" x="0" y="432" originX="0" originY="432"/> 
+			<DisplayObject2D id="blackout" culling="false" assetID="blackout_asset" x="0" y="546" originX="0" originY="546"/> 			
+		</ZSortingDisplayObject>
+
+		<ZSortingDisplayObject id="playerMessages"/>
+	</Scene>
+
+	<Assets id="assets">
+        <Asset id="background_music_asset" url="sounds/lab/music.mp3"/>
+        <Asset id="hit_asset" url="images/lab/hit.png"/>
+        <Asset id="click_asset" url="images/lab/click.png"/>
+        <Asset id="light_filter_asset" url="images/lab/light.jpg"/>
+        <Asset id="blackout_asset" url="images/lab/blackout.swf"/>
+        <Asset id="background_asset" url="images/lab/background.jpg"/>
+        <Asset id="walk" url="images/lab/walk12.swf"/>
+        <Asset id="stand" url="images/lab/stand12.swf"/>
+        <Asset id="fire_asset" url="images/lab/fire.swf"/>
+        <Asset id="fireout_asset" url="images/lab/fireout.swf"/>
+        <Asset id="doc_asset" url="images/lab/doc.png"/>
+        <Asset id="cog1bg_asset" url="images/lab/cog1bg.swf"/>
+        <Asset id="cog2bg_asset" url="images/lab/cog2bg.swf"/>
+        <Asset id="books1_asset" url="images/lab/books1.swf"/>
+        <Asset id="books2_asset" url="images/lab/books2.swf"/>
+        <Asset id="books3_asset" url="images/lab/books3.swf"/>
+        <Asset id="books4_asset" url="images/lab/books4.swf"/>
+        <Asset id="books5_asset" url="images/lab/books5.swf"/>
+        <Asset id="books6_asset" url="images/lab/books6.swf"/>
+        <Asset id="books7_asset" url="images/lab/books7.swf"/>
+        <Asset id="timemachine_asset" url="images/lab/timemachine.swf"/>
+        <Asset id="sky_asset" url="images/lab/sky.png"/>
+        <Asset id="books_asset" url="images/lab/books.swf"/>
+        <Asset id="telescope_asset" url="images/lab/telescope.swf"/>
+        <Asset id="cogs_asset" url="images/lab/cogs.swf"/>
+        <Asset id="fireplace_asset" url="images/lab/fireplace.swf"/>
+        <Asset id="gramophone_asset" url="images/lab/gramophone.swf"/>
+        <Asset id="spring_asset" url="images/lab/spring.swf"/>
+        <Asset id="gramexp_asset" url="images/lab/gramexp.swf"/>
+        <Asset id="cogsmove_asset" url="images/lab/cogsmove.swf"/>
+        <Asset id="glass_asset" url="images/lab/glass.swf"/>
+        <Asset id="pendulum1_asset" url="images/lab/pendulum1.swf"/>
+        <Asset id="wallcog1_asset" url="images/lab/wallcog1.swf"/>
+        <Asset id="wallcog2_asset" url="images/lab/wallcog2.swf"/>
+        <Asset id="wallcog3_asset" url="images/lab/wallcog3.swf"/>
+        <Asset id="pendulum2_asset" url="images/lab/pendulum2.swf"/>
+        <Asset id="lens2_asset" url="images/lab/lens2.swf"/>
+        <Asset id="pendulumbase_asset" url="images/lab/pendulumbase.swf"/>
+        <Asset id="tools_asset" url="images/lab/tools.swf"/>
+        <Asset id="lens1_asset" url="images/lab/lens1.swf"/>
+        <Asset id="chalkboard_asset" url="images/lab/chalkboard.swf"/>
+        <Asset id="wallPendulum1_asset" url="images/lab/wallPendulum1.swf"/>
+        <Asset id="wallPendulum2_asset" url="images/lab/wallPendulum2.swf"/>
+        <Asset id="wallPendulum3_asset" url="images/lab/wallPendulum3.swf"/>
+        <Asset id="wallLens1_asset" url="images/lab/wallLens1.swf"/>
+        <Asset id="wallLens2_asset" url="images/lab/wallLens2.swf"/>
+        <Asset id="wallLens3_asset" url="images/lab/wallLens3.swf"/>
+        
+    </Assets>
+
+
+	<Trigger event="OnLookAt" gameObject="{Room.telescope}">
+		<If expression="({Quests.timeMachineQuest.telescope.complete} == {false})">
+			<Then>
+				<ShowBubble gameObject="{Room.player}" message="The telescope is missing some of its lenses. It needs a full set of lenses before it can be used"/>
+			</Then>
+			<Else>
+				<ShowBubble gameObject="{Room.player}" message="What a view, I've never seen the sky like this before! "/>
+			</Else>
+		</If>
+	</Trigger>
+
+	<Trigger event="OnDragDrop" gameObject="{Room.telescope}">
+		<Switch value="{Event.dragInitiator.id}">
+			<lens_one_backpack>		
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="900" targetY="438">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.lens_one_backpack.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" lens1Ready="true"/>
+						<SetValues target="{Room.wallLens1}" visible="true"/>
+						<Call BehaviourID="useTheTelescope"/>
+					</Complete>					
+				</MoveTo>
+			</lens_one_backpack>
+			<lens_two_backpack>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="900" targetY="438">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.lens_two_backpack.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" lens2Ready="true"/>
+						<SetValues target="{Room.wallLens2}" visible="true"/>
+						<Call BehaviourID="useTheTelescope"/>
+					</Complete>					
+				</MoveTo>
+			</lens_two_backpack>
+			<toolsbp_glassbp>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="900" targetY="438">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.toolsbp_glassbp.id}"/>							
+						<SetValues target="{Rooms.session.questPersists}" lens3Ready="true"/>
+						<SetValues target="{Room.wallLens3}" visible="true"/>
+						<Call BehaviourID="useTheTelescope"/>									
+					</Complete>					
+				</MoveTo>
+			</toolsbp_glassbp>
+			<default>
+				<ShowBubble gameObject="{Room.player}" message="That doesn't fit here"/>
+			</default>
+		</Switch>	
+		<DeactivateVerb/>
+		<HideCustomCursor/>
+	</Trigger>
+
+	<BehaviourDefinition id="useTheTelescope">
+		<If expression="({Rooms.session.questPersists.lens1Ready} == {true})">
+			<Then>
+				<If expression="({Rooms.session.questPersists.lens2Ready} == {true})">
+					<Then>
+						<If expression="({Rooms.session.questPersists.lens3Ready} == {true})">
+							<Then>
+								<SetValues target="{Rooms.session.questPersists}" lensReady="true"/>
+								<SetValues target="{Room.globe2}" visible="true"/>
+								<CompleteObjective objective="{Quests.timeMachineQuest.telescope}"/>
+								<ShowBubble gameObject="{Room.player}" message="What a view, I've never seen the sky like this before!"/>
+							</Then>
+						</If>						
+					</Then>
+				</If>
+			</Then>
+		</If>
+		<If expression="({Rooms.session.questPersists.lensReady} == {false})">
+			<Then>
+				<ShowBubble gameObject="{Room.player}" message="Hmmm... something's still missing..."/>
+			</Then>
+		</If>
+	</BehaviourDefinition>
+
+	<Trigger event="OnPickUp" gameObject="{Room.lens1}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="982" targetY="438">
+			<Complete>
+				<AddToBackpack possessionID="lens_two_backpack"/>
+				<ShowBubble gameObject="{Room.player}" message="Could this have anything to do with the telescope?"/>
+				<RemoveFromWorld gameObject="{Room.lens1}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.lens1}">
+		<ShowBubble gameObject="{Room.player}" message="It looks like a lens"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.lens2}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="581" targetY="481">
+			<Complete>
+				<AddToBackpack possessionID="lens_one_backpack"/>
+				<ShowBubble gameObject="{Room.player}" message="I wonder where it belongs"/>
+				<RemoveFromWorld gameObject="{Room.lens2}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>	
+
+	<Trigger event="OnLookAt" gameObject="{Room.lens2}">
+		<ShowBubble gameObject="{Room.player}" message="It looks like a lens"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.tools}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="230" targetY="458">
+			<Complete>
+				<AddToBackpack possessionID="toolsbp"/>
+				<ShowBubble gameObject="{Room.player}" message="I wonder what these tools could be used for"/>
+				<RemoveFromWorld gameObject="{Room.tools}"/>
+			</Complete>
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.tools}">
+		<ShowBubble gameObject="{Room.player}" message="It looks like a tool kit"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.glass}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="662" targetY="438">
+			<Complete>
+				<AddToBackpack possessionID="glassbp"/>
+				<ShowBubble gameObject="{Room.player}" message="I should take this so that nobody hurts themselfs on its sharp edges"/>
+				<RemoveFromWorld gameObject="{Room.glass}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.glass}">
+		<ShowBubble gameObject="{Room.player}" message="It's a bit of glass int it..."/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.Gramophone}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="407" targetY="444">
+			<Complete>
+				<ShowBubble gameObject="{Room.player}" message="It's too heavy!"/>
+			</Complete>
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.Gramophone}">
+		<ShowBubble gameObject="{Room.player}" message="A curious device that can record and playback sounds and voices, and will apparently one day be used to corrupt the minds of young people "/>
+	</Trigger>
+
+	<Trigger event="OnDragDrop" gameObject="{Room.Gramophone}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="407" targetY="444">
+			<Complete>
+				<Switch value="{Event.dragInitiator.id}">
+					<spring_backpack>
+						<SetValues target="{Rooms.session.questPersists}" gramaphoneReady="true"/>
+						<RemoveFromBackpack possessionID="{Backpack.spring_backpack.id}"/>
+						<ShowBubble gameObject="{Room.player}" message="OK! Looks supercharged, just got to use it!"/>
+					</spring_backpack>
+					<default>
+						<ShowBubble gameObject="{Room.player}" message="That didn't seem to work"/>
+					</default>
+				</Switch>
+			</Complete>
+		</MoveTo>
+		<DeactivateVerb/>
+		<HideCustomCursor/>
+	</Trigger>
+
+	<Trigger event="OnUse" gameObject="{Room.Gramophone}">
+		<If expression="({Rooms.session.questPersists.gramaphoneReady} == {true})">
+			<Then>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="407" targetY="444">
+					<Complete>
+												
+						
+						<SetValues target="{Room.Gramophone}" visible="false"/>
+						<GotoAndPlay gameObject="{Room.gramexp}" frame="2">
+							<Frame>
+								
+								
+								<ShowBubble gameObject="{Room.player}" message="Oooer this doesn't look good, better stand back!" if="({Event.frame}=={80})" displayTime="3000"/>
+								<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="589" targetY="430" if="({Event.frame}=={85})"/>
+								
+								
+								<GotoAndStop gameObject="{Room.gramexp}" frame="155" if="({Event.frame}=={155})"/>
+								
+								
+								<GotoAndPlay gameObject="{Room.blackout}" frame="2" if="({Event.frame}=={50})">
+									<Frame>
+										<If expression="({Event.frame}=={155})">
+											<Then>
+												
+												<SetValues target="{Room.player}" visible="false"/>
+												<Play gameObject="{Room.gramexp}"/>
+
+												
+												<SetValues target="{Room.books}" visible="true"/>
+												<SetValues target="{Room.Glass}" visible="true"/>
+
+												
+												<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="588" targetY="430"/>
+
+												
+												<SetValues target="{Room.Gramophone}" visible="true"/>											
+											</Then>
+										</If>	
+									</Frame>
+									<Complete>
+										<SetValues target="{Room.player}" visible="true"/>
+									</Complete>	
+								</GotoAndPlay>	
+								
+							</Frame>		
+						</GotoAndPlay>	
+						
+						<SetValues target="{Rooms.session.questPersists}" gramaphoneReady="false"/>						
+					</Complete>
+				</MoveTo>		
+			</Then>
+			<Else>
+				<ShowBubble gameObject="{Room.player}" message="Purdy music"/>
+			</Else>
+		</If>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.spring}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="362" targetY="460">
+			<Complete>
+				<AddToBackpack possessionID="spring_backpack"/>
+				<ShowBubble gameObject="{Room.player}" message="Using this as a component for a machine could make it dangerously volatile, I better be carful where i put it"/>
+				<RemoveFromWorld gameObject="{Room.spring}"/>
+			</Complete>
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.spring}">
+		<ShowBubble gameObject="{Room.player}" message="HIGH TENSILE TUNGSTEN SPRING Of course using this as a component for a machine could make it dangerously volatile, but life wouldn't be much fun without risks, would it?"/>
+	</Trigger>
+
+
+	<Trigger event="OnLookAt" gameObject="{Room.Grandfather clock}">
+		<ShowBubble gameObject="{Room.player}" message="This is a peculiar machine similar to a grandfather clock, that runs on a system of perpetual centrifugal motion, that's what the plaque says"/>
+	</Trigger>
+	
+	<Trigger event="OnDragDrop" gameObject="{Room.Grandfather clock}">
+		<Switch value="{Event.dragInitiator.id}">
+			<pendulum1bp>		
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="730" targetY="413">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.pendulum1bp.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" pendulum1Ready="true"/>
+						<SetValues target="{Room.wallPendulum1}" visible="true"/>
+						<Call BehaviourID="useTheTimeMachine"/>
+					</Complete>					
+				</MoveTo>
+			</pendulum1bp>
+			<pendulum2bp>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="730" targetY="413">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.pendulum2bp.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" pendulum2Ready="true"/>
+						<SetValues target="{Room.wallPendulum2}" visible="true"/>
+						<Call BehaviourID="useTheTimeMachine"/>
+					</Complete>					
+				</MoveTo>
+			</pendulum2bp>
+			<pendulum3bp>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="730" targetY="413">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.pendulum3bp.id}"/>							
+						<SetValues target="{Rooms.session.questPersists}" pendulum3Ready="true"/>
+						<SetValues target="{Room.wallPendulum3}" visible="true"/>
+						<Call BehaviourID="useTheTimeMachine"/>									
+					</Complete>					
+				</MoveTo>
+			</pendulum3bp>
+			<default>
+				<ShowBubble gameObject="{Room.player}" message="I can't put that here"/>
+			</default>
+		</Switch>
+		<DeactivateVerb/>
+		<HideCustomCursor/>
+	</Trigger>
+	
+	<BehaviourDefinition id="useTheTimeMachine">
+		<If expression="({Rooms.session.questPersists.pendulum1Ready} == {true})">
+			<Then>
+				<If expression="({Rooms.session.questPersists.pendulum2Ready} == {true})">
+					<Then>
+						<If expression="({Rooms.session.questPersists.pendulum3Ready} == {true})">
+							<Then>
+								<SetValues target="{Rooms.session.questPersists}" pendulumReady="true"/>
+								<CompleteObjective objective="{Quests.timeMachineQuest.timemachine}"/>
+								<ShowBubble gameObject="{Room.player}" message="The hands on the clock seem to be going anticlockwise"/>
+							</Then>
+						</If>						
+					</Then>
+				</If>
+			</Then>
+		</If>
+		<If expression="({Rooms.session.questPersists.pendulumReady} == {false})">
+			<Then>
+				<ShowBubble gameObject="{Room.player}" message="Hmmm... Looks like there is still some missing"/>
+			</Then>
+		</If>
+	</BehaviourDefinition>
+
+	<Trigger event="OnPickUp" gameObject="{Room.pendulum1}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="448" targetY="426">
+			<Complete>
+				<AddToBackpack possessionID="pendulum1bp"/>
+				<SetValues target="{Room.fireplace}" verbEnabled="true" clickThrough="true" mouseEnabled="true" visible="true"/>
+				<ShowBubble gameObject="{Room.player}" message="I should take this before it get destroyed in the fire"/>
+				<RemoveFromWorld gameObject="{Room.pendulum1}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.pendulum1}">
+		<ShowBubble gameObject="{Room.player}" message="A small pendulum, its still warm from the fire"/>
+	</Trigger>
+	
+	<Trigger event="OnPickUp" gameObject="{Room.pendulum2}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="1048" targetY="477">
+			<Complete>
+				<AddToBackpack possessionID="pendulum2bp"/>
+				<ShowBubble gameObject="{Room.player}" message="A pendulum, it looks like it could belong to the grandfather clock over there"/>
+				<RemoveFromWorld gameObject="{Room.pendulum2}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>	
+	
+	<Trigger event="OnLookAt" gameObject="{Room.pendulum2}">
+		<ShowBubble gameObject="{Room.player}" message="Could this be an upside down pendulum for a clock?"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.globe}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="599" targetY="476">
+			<Complete>				
+				<If expression="({Quests.timeMachineQuest.telescope.complete} == {true})">
+					<Then>
+						<If expression="({Rooms.session.questPersists.pendulum3PickedUp} == {false})">
+							<Then>
+								<AddToBackpack possessionID="pendulum3bp"/>
+								<SetValues target="{Rooms.session.questPersists}" pendulum3PickedUp="true"/>
+								<ShowBubble gameObject="{Room.player}" message="I found a pendulum inside"/>
+								<RemoveFromWorld gameObject="{Room.pendulum3}"/>		
+							</Then>
+							<Else>
+								<ShowBubble gameObject="{Room.player}" message="I can't pick up this globe its far to heavy"/>
+							</Else>
+						</If>
+					</Then>
+					<Else>
+						<ShowBubble gameObject="{Room.player}" message="I can't pick up this globe its far to heavy"/>
+					</Else>
+				</If>
+			</Complete>	
+		</MoveTo>
+	</Trigger>	
+
+	<Trigger event="OnLookAt" gameObject="{Room.globe}">
+		<ShowBubble gameObject="{Room.player}" message="It's a star chart globe thing"/>
+	</Trigger>
+
+
+	<Trigger event="OnLookAt" gameObject="{Room.Fireplace}">
+		<If expression="({Quests.timeMachineQuest.fireplace.complete} == {false})">
+			<Then>
+				<ShowBubble gameObject="{Room.player}" message="Behind the fire you can make out some ornate metal object glinting through the flames"/>
+			</Then>
+			<Else>
+				<ShowBubble gameObject="{Room.player}" message="The fire has died out"/>
+			</Else>
+		</If>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.Fireplace}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="489" targetY="429">
+			<Complete>
+				<If expression="({Quests.timeMachineQuest.fireplace.complete} == {false})">
+					<Then>
+						<ShowBubble gameObject="{Room.player}" message="Hot hot hot hot... I cant take that just yet"/>
+					</Then>
+					<Else>
+						<ShowBubble gameObject="{Room.player}" message="I can't pick up a fireplace"/>
+					</Else>
+				</If>
+			</Complete>	
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnDragDrop" gameObject="{Room.cogs}">
+		<Switch value="{Event.dragInitiator.id}">
+			<cog1>		
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="490" targetY="429">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.cog1.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" cog1Ready="true"/>
+						<SetValues target="{Room.wallCog1}" visible="true"/>
+						<Call BehaviourID="putoutthefire"/>
+					</Complete>					
+				</MoveTo>
+			</cog1>
+			<cog2>
+				<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="490" targetY="429">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.cog2.id}"/>
+						<SetValues target="{Rooms.session.questPersists}" cog2Ready="true"/>
+						<SetValues target="{Room.wallcog2}" visible="true"/>
+						<Call BehaviourID="putoutthefire"/>
+					</Complete>					
+				</MoveTo>
+			</cog2>
+			<cog3>
+			   <MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="490" targetY="429">
+					<Complete>
+						<RemoveFromBackpack possessionID="{Backpack.cog3.id}"/>							
+						<SetValues target="{Rooms.session.questPersists}" cog3Ready="true"/>
+						<SetValues target="{Room.wallcog3}" visible="true"/>
+						<Call BehaviourID="putoutthefire"/>									
+					</Complete>					
+				</MoveTo>
+			</cog3>
+			<default>
+				<ShowBubble gameObject="{Room.player}" message="I don't want to do that..."/>
+			</default>
+		</Switch>
+		<DeactivateVerb/>
+		<HideCustomCursor/>
+	</Trigger>
+	
+	<BehaviourDefinition id="putoutthefire">
+		<If expression="({Rooms.session.questPersists.cog1Ready} == {true})">
+			<Then>
+				<If expression="({Rooms.session.questPersists.cog2Ready} == {true})">
+					<Then>
+						<If expression="({Rooms.session.questPersists.cog3Ready} == {true})">
+							<Then>
+								<SetValues target="{Rooms.session.questPersists}" cogsReady="true"/>
+								<SetValues delay="3000" target="{Room.fire}" verbEnabled="false" clickThrough="true" mouseEnabled="false" visible="false"/>
+								<SetValues delay="1000" target="{Room.lens1}" verbEnabled="true" mouseEnabled="true" visible="true"/>
+								<SetValues target="{Room.fireplace}" verbEnabled="false" clickThrough="false" mouseEnabled="false" visible="false"/>
+								<SetValues target="{Room.cogsmove}" verbEnabled="true" mouseEnabled="true" visible="true"/>
+								<SetValues target="{Room.wallcog1}" verbEnabled="true" mouseEnabled="false" visible="false"/>
+								<SetValues target="{Room.wallcog2}" verbEnabled="true" mouseEnabled="false" visible="false"/>
+								<SetValues target="{Room.wallcog3}" verbEnabled="true" mouseEnabled="false" visible="false"/>
+								<GotoAndPlay gameObject="{Room.cogsmove}" frame="2"/>	
+								<GotoAndPlay gameObject="{Room.fireout}" frame="2" delay="3000"/>
+								<CompleteObjective objective="{Quests.timeMachineQuest.fireplace}"/>
+								<ShowBubble gameObject="{Room.player}" message="It's working!"/>
+							</Then>
+						</If>						
+					</Then>
+				</If>
+			</Then>
+		</If>
+		<If expression="({Rooms.session.questPersists.cogsReady}=={false})">
+			<Then>
+				<ShowBubble gameObject="{Room.player}" message="Hmmm... There are still hubs for more cogs"/>
+			</Then>
+		</If>
+	</BehaviourDefinition>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.cogs}">
+		<ShowBubble gameObject="{Room.player}" message="The chimney breast has cogs built into it, and hubs for more to be attached"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.cog1bg}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="335" targetY="450">
+			<Complete>
+				<AddToBackpack possessionID="cog1"/>
+				<ShowBubble gameObject="{Room.player}" message="This sort of cog could only be used in a large contraption"/>
+				<RemoveFromWorld gameObject="{Room.cog1bg}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.cog1bg}">
+		<ShowBubble gameObject="{Room.player}" message="This large cog musy be a component of some machine or device"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.cog2bg}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="730" targetY="413">
+			<Complete>
+				<AddToBackpack possessionID="cog2"/>
+				<ShowBubble gameObject="{Room.player}" message="It does't look right there I would where it really belongs?"/>
+				<RemoveFromWorld gameObject="{Room.cog2bg}"/>
+			</Complete>	
+		</MoveTo>
+	</Trigger>	
+		
+	<Trigger event="OnLookAt" gameObject="{Room.cog2bg}">
+		<ShowBubble gameObject="{Room.player}" message="This cog must be here for a reason"/>
+	</Trigger>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.books}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_one}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+
+	<Trigger event="OnPickUp" gameObject="{Room.bookshelf_two}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="614" targetY="423">
+			<Complete>
+				<If expression="({Rooms.session.questPersists.cog3PickedUp} == {false})">
+					<Then>
+						<ShowBubble gameObject="{Room.player}" message="The book is mostly hollow and contains a small cog hidden inside"/>
+						<SetValues target="{Rooms.session.questPersists}" cog3PickedUp="true"/>
+						<AddToBackpack possessionID="cog3"/>
+					</Then>
+					<Else>
+						<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+					</Else>
+				</If>
+			</Complete>					
+		</MoveTo>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_two}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_three}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+	
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_four}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+		
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_five}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_six">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+		
+	<Trigger event="OnLookAt" gameObject="{Room.bookshelf_seven}">
+		<ShowBubble gameObject="{Room.player}" message="It appears to be an extensive library of books relating to physics, engineering and philosophy"/>
+	</Trigger>
+
+
+	<Trigger event="OnClick" gameObject="{Room.click}">	
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="{Event.x}" targetY="{Event.y}"/>
+	</Trigger>
+
+	<BehaviourDefinition id="ShowPlayerBubble">
+		<ShowBubble gameObject="{Room.player}" message="{Event.message}"/>
+	</BehaviourDefinition>
+
+	<Trigger event="OnLookAt" gameObject="{Room.doc}">
+		<ShowBubble gameObject="{Room.player}" message="It's Karlheinz Fotheringay"/>
+	</Trigger>
+
+	<Trigger event="OnLookAt" gameObject="{Room.chalkboard}">
+		<ShowBubble gameObject="{Room.player}" message="Notes and calculations made by Rothwell Ruskin-Horton II are scribbled on the blackboard. These are mostly half erased and illegible"/>
+	</Trigger>
+
+
+	<Trigger event="OnTalkTo" gameObject="{Room.doc}">
+		<MoveTo gameObject="{Room.player}" x="{Room.player.x}" y="{Room.player.y}" targetX="280" targetY="475">
+			<Complete>
+				<BeginDialogue statement="{Room.talkToTheDoc}" npc="{Room.doc}" player="{Room.player}" messageDelay="1000" dialogueID="dialogue"/>
+			</Complete>
+		</MoveTo>
+	</Trigger>
+
+	<Dialogue id="dialogue">
+		<Triggers>	
+			<OnBeginDialogue><Trace message="Dialogue began"/></OnBeginDialogue>
+			<OnCompleteDialogue><Trace message="Dialogue complete"/></OnCompleteDialogue>
+			<OnMessage>
+				<If expression="({Event.messageTarget}=={Room.player})">
+					<Then>
+						<ShowBubble gameObject="{Room.player}" message="{Event.message}"/>
+					</Then>
+					<Else>
+						<ShowBubble gameObject="{Room.doc}" message="{Event.message}"/>
+					</Else>
+				</If>
+			</OnMessage>
+		</Triggers>
+	</Dialogue>	
+	
+	<Statement id="talkToTheDoc" message1=" Ah hello there lad. Inspector Lavigeur told me he'd send over some assistance. Peckham isn't it?">
+		<Response message="It's George, sir. George Peckham">
+			<Statement message=" Aren't you a little bit young for a Police Detective?">
+				<Response message="Actually sir, Inspector Lavigeur thought to keep the regulars out of this matter ">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="The Inspector's my uncle sir. Thought I could do with some work experience">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="Well, they say you know you're getting old, when policemen look younger!">
+					<Statement message="I like the cut of your jib young fella! Wit is a more useful companion than a handgun or a cudgel Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>	
+				</Response>
+			</Statement>		
+		</Response>
+		<Response message="That's right sir. At your service?">
+			<Statement message=" Aren't you a little bit young for a Police Detective?">
+				<Response message="Actually sir, Inspector Lavigeur thought to keep the regulars out of this matter ">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="The Inspector's my uncle sir. Thought I could do with some work experience">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="Well, they say you know you're getting old, when policemen look younger!">
+					<Statement message="I like the cut of your jib young fella! Wit is a more useful companion than a handgun or a cudgel Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>	
+				</Response>
+			</Statement>	
+		</Response>
+		<Response message="My friends call me Porky sir">
+			<Statement message=" Aren't you a little bit young for a Police Detective?">
+				<Response message="Actually sir, Inspector Lavigeur thought to keep the regulars out of this matter ">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="The Inspector's my uncle sir. Thought I could do with some work experience">
+					<Statement message="A good idea, young man. Lavigeur's more astute than he looks. Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>
+				</Response>
+				<Response message="Well, they say you know you're getting old, when policemen look younger!">
+					<Statement message="I like the cut of your jib young fella! Wit is a more useful companion than a handgun or a cudgel Now, to business!'">
+						<Response message="What are we investigating, sir?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>		
+						<Response message="What is this place? I've never seen such baffling wonders!">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+						<Response message="The Inspector mentioned something about finding a missing person...?">
+							<Statement message="This is the laboratory and study of one Rothwell Ruskin-Horton II, inventor, alchemist and philosopher. Eight days ago he contacted me, he described making some breakthrough in the sciences, but did not elaborate any further. No one has heard anything from him since... The Inspector suspects foul play. And its up to us to find him.'">
+							</Statement>
+						</Response>
+					</Statement>	
+				</Response>
+			</Statement>		
+		</Response>
+	</Statement>
+
+</ChatRoom>

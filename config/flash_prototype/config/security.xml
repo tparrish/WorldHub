@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Security current="@env.current@">
+    
+	<Policies type="local">
+		
+	</Policies>
+    
+	<Policies type="dev">
+		
+	</Policies>
+	
+	<Policies type="app">
+		 
+	</Policies>
+	
+    <Policies type="all">
+	    <AllowInsecureDomain URL="*"/>	        
+	    <LoadPolicyFile URL="/crossdomain.xml"/>
+    </Policies>
+</Security>

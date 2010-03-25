@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<logging>
+	<logTarget type="uk.co.dubit.logging.CallbackLogger" level="WARN" includeDate="false" includeTime="false" includeCategory="true" includeLevel="true">
+		<filters>
+			<filter>*</filter>
+		</filters>
+	</logTarget>
+	<logTarget type="uk.co.dubit.logging.GAMLCallbackLogger" level="DEBUG" includeDate="false" includeTime="false" includeCategory="true" includeLevel="true">
+		<filters>
+			<filter>uk.co.dubit.platform.scriptEngine.behaviour.types.debug.Trace</filter>
+		</filters>
+	</logTarget>
+	<logTarget type="uk.co.dubit.logging.CallbackLogger" level="INFO" includeDate="false" includeTime="false" includeCategory="true" includeLevel="true">
+		<filters>
+			<filter>uk.co.dubit.platform.scriptEngine.behaviour.Behaviour</filter>
+		</filters>
+	</logTarget>	
+	<logTarget type="mx.logging.targets.TraceTarget" level="WARN" includeDate="false" includeTime="false" includeCategory="true" includeLevel="true">
+		<filters>
+			<filter>*</filter>
+		</filters>
+	</logTarget>		
+</logging>
+
+

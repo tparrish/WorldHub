@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Channel id="roomChannel" encoding="3" type="mina" endpoint="{Properties.[path.game-server]}">
+		<Triggers>
+			<connectionSuccess>
+				<Trace message="---Connected to the Nexus Game Server---" />
+				
+				<EnterSession>
+					<Result>
+						<Trace message="Entered session" />
+						
+						<ChangeRoom roomName="{Properties.[setting.rooms.default-room]}"  />
+					</Result>
+					<Fault><Trace message="Failed to enter session" /></Fault>
+				</EnterSession>
+			</connectionSuccess>
+			
+			<connectionFailed>
+				<Alert title="Connection failed" message="Unable to connect to the Nexus Game Server" flags="0x0004" width="350" height="150"/>
+			</connectionFailed>
+			
+			<connectionLost>
+				<Alert title="Connection lost" message="Connection to the Nexus Game Server has been lost" flags="0x0004" width="350" height="150"/>
+			</connectionLost>
+			
+			<connectionError>
+				<Alert title="Connection failed" message="Unable to connect to the Nexus Game Server" flags="0x0004" width="350" height="150"/>
+			</connectionError>
+		</Triggers>
+	</Channel>
+</Include>

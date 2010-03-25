@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SessionRoom id="session" xmlns:xi="http://www.w3.org/2001/XInclude">
+	
+	<Include xmlns:xi="http://www.w3.org/2001/XInclude" xml:base="../server/startup.xml">
+	<Channel id="roomChannel" encoding="3" type="mina" endpoint="{Properties.[path.game-server]}">
+		<Triggers>
+			<connectionSuccess>
+				<Trace message="---Connected to the Nexus Game Server---"/>
+				
+				<EnterSession>
+					<Result>
+						<Trace message="Entered session"/>
+						
+						<ChangeRoom roomName="{Properties.[setting.rooms.default-room]}"/>
+					</Result>
+					<Fault><Trace message="Failed to enter session"/></Fault>
+				</EnterSession>
+			</connectionSuccess>
+			
+			<connectionFailed>
+				<Alert title="Connection failed" message="Unable to connect to the Nexus Game Server" flags="0x0004" width="350" height="150" if="({Properties.[setting.useServer]}=={true})"/>
+			</connectionFailed>
+			
+			<connectionLost>
+				<Alert title="Connection lost" message="Connection to the Nexus Game Server has been lost" flags="0x0004" width="350" height="150" if="({Properties.[setting.useServer]}=={true})"/>
+			</connectionLost>
+			
+			<connectionError>
+				<Alert title="Connection failed" message="Unable to connect to the Nexus Game Server" flags="0x0004" width="350" height="150" if="({Properties.[setting.useServer]}=={true})"/>
+			</connectionError>
+		</Triggers>
+	</Channel>
+</Include>
+	
+	<Behaviour>
+		<onFixUp>
+			<Trace message="Session created useServer={Properties.[setting.useServer]}"/>
+			<ChangeRoom roomName="{Properties.[setting.rooms.default-room]}" if="({Properties.[setting.useServer]}=={false})"/>
+		</onFixUp>
+		<onChangeRoom>
+			<Call behaviourID="EnterRoom" roomName="{Event.roomName}"/>
+		</onChangeRoom>
+	</Behaviour>	
+	
+	<BehaviourDefinition id="EnterRoom">
+		<Trace message="EnterRoom called: roomName={Event.roomName}"/>
+				
+		<ChangeRoom roomName="{Event.roomName}">
+			<loadAssetError>
+				<Trace message="loadAssetError called in script!"/>
+			</loadAssetError>
+			<loadVitalAssetError>
+				<Alert message="loadVitalAssetError called in script!">
+					<Ok>
+						<ExecuteBehaviour target="enterDemoRoom"/>
+					</Ok>
+				</Alert>
+			</loadVitalAssetError>
+		</ChangeRoom>
+	</BehaviourDefinition>
+
+	
+	<Map>
+		<Location name="Professor's Lab" roomID="lab" id="labRoom" visible="true" visited="false"/>		
+		<Location name="Library" roomID="lab" id="sdsdada" visible="true" visited="false"/>	
+		<Location name="Drawing Room" roomID="lab" id="dsdsadsdas" visible="true" visited="false"/>		
+		<Location name="Secret Staircase" roomID="lab" id="asdsadasdas" visible="true" visited="false"/>	
+		<Triggers>
+			<OnLocationVisible>
+				<Trace message="Location visible location={Event.location}"/>
+			</OnLocationVisible>
+			<OnLocationVisited>
+				<AwardExperiencePoints points="5"/>
+			</OnLocationVisited>		
+		</Triggers>	
+	</Map>
+		
+	<Experience points="0">
+		<Level points="0" name="Getting Started" message=""/>
+		<Level points="20" name="New Arrival" message="Congratulations!  You are now a new arrival, and we've awarded you a basic ball!"/>
+		<Level points="50" name="Learner" message="Blah blah"/>
+		<Level points="100" name="Playful" message="Blah blah"/>
+		<Level points="150" name="Playful 2" message="Blah blah"/>
+		<Level points="200" name="Playful 3" message="Blah blah"/>
+		<Level points="300" name="Playful 4" message="Blah blah"/>
+		<Triggers>
+			<OnLevelUp>
+				<Trace message="OnLevelUp level={Event.level}"/>
+				<AwardSkillPoints points="1"/>
+				<CreateNotification title="Level up!" body="{Event.level.message}" can_remove="true"/>
+			</OnLevelUp>
+			<OnAwardedExperience>
+				<Trace message="OnAwardedExperience level={Experience.level}"/>
+			</OnAwardedExperience>
+		</Triggers>
+	</Experience>
+	
+	<Skills points="0">
+		<Skill id="exploring" name="Explorer" points="1" maximum="20" description="Increasing your exploring skill improves your chances of finding useful items."/>
+		<Skill id="inventing" name="Inventor" points="1" maximum="20" description="Increasing your invetor skill allows you to create and build more things."/>
+		<Triggers>
+			<OnAwardedSkillPoints>
+				<Trace message="OnSkillPointAwarded points={Skills.points}"/>
+			</OnAwardedSkillPoints>
+			<OnUsedSkillPoints>
+				<Trace message="OnUsedSkillPoints skill={Event.skill}"/>
+			</OnUsedSkillPoints>
+		</Triggers>
+	</Skills>	
+	
+	<GameObject id="questPersists" cogsReady="false" cog1Ready="false" cog2Ready="false" cog3Ready="false" gramaphoneReady="false" cog3PickedUp="false" persist="true" lensReady="false" lens1Ready="false" lens2Ready="false" lens3Ready="false" pendulumReady="false" pendulum1Ready="false" pendulum2Ready="false" pendulum3Ready="false" pendulum3PickedUp="false"/>
+
+	<Backpack>
+		
+		<Possession id="cog1" name="Large Cog" description="A large sized cog from some machinery" previewURL="images/backpack/cog_one_backpack.swf" quantity="1"/>
+		<Possession id="cog2" name="Medium Cog" description="A medium sized cog from some machinery" previewURL="images/backpack/cog_two_backpack.swf" quantity="1"/>
+		<Possession id="cog3" name="Small Cog" description="A small sized cog from some machinery" previewURL="images/backpack/cog_three_backpack.swf" quantity="1"/>
+		
+		
+		<Possession id="toolsbp" name="Glass Crafting Tools" description="A glass crafting tool kit" previewURL="images/backpack/tools_backpack.swf" quantity="1"/>
+		<Possession id="glassbp" name="A shard of glass" description="A shard if glass from the broken window" previewURL="images/backpack/glass_backpack.swf" quantity="1"/>
+		<Possession id="lens_one_backpack" name="Telescopic lens" description="A telescopic lens" previewURL="images/backpack/lens_one_backpack.swf" quantity="1"/>
+		<Possession id="lens_two_backpack" name="Telescopic lens" description="A telescopic lens" previewURL="images/backpack/lens_two_backpack.swf" quantity="1"/>
+		<Possession id="toolsbp_glassbp" name="Telescopic lens" description="A telescopic lens" previewURL="images/backpack/lens_three_backpack.swf" quantity="1"/>
+		<Possession id="spring_backpack" name="A tungsten spring" description="A sproingy bouncy spring, made from high tensile tungsten, a good way of storing energy" previewURL="images/backpack/spring_backpack.swf" quantity="0"/>
+		
+		
+		<Possession id="pendulum1bp" name="A pendulum" description="A pendulum from a grandfather clock" previewURL="images/backpack/pendulum_one_backpack.swf" quantity="0"/>
+		<Possession id="pendulum2bp" name="A pendulum" description="A pendulum from a grandfather clock" previewURL="images/backpack/pendulum_two_backpack.swf" quantity="0"/>
+		<Possession id="pendulum3bp" name="A pendulum" description="A pendulum from a grandfather clock" previewURL="images/backpack/pendulum_three_backpack.swf" quantity="0"/>
+
+		
+		<Possession id="journal_backpack" name="A journal" description="It doesn't look like it has been used in awhile" previewURL="images/backpack/journal_backpack.swf" quantity="0"/>
+
+		<Combinations>
+			<Combination possession1="{Backpack.toolsbp}" possession2="{Backpack.glassbp}" success="It looks like i've made a lens of some sort" fail="That didn't seem to work very well"/> 
+		</Combinations>
+
+		<Triggers>
+			<OnAdded>
+				<Trace message="OnAddedCollectable {Event.possession.id}"/>
+				<AwardExperiencePoints points="5"/>
+			</OnAdded>
+			<OnRemoved>
+				<Trace message="OnRemovedCollectable {Event.possession.id}"/>
+			</OnRemoved>
+			<OnSelected>
+				<Trace message="OnSelectedCollectable {Event.possession.id}"/>
+			</OnSelected>			
+			<OnCombinationSuccess>
+				<Trace message="Successfully combined {Event.possession1.name} with {Event.possession2.name} message={Event.combination.success}"/>
+				<Call behaviourID="ShowPlayerBubble" scope="{Rooms.currentRoom}" message="{Event.combination.success}"/>
+			</OnCombinationSuccess>
+			<OnCombinationFail>
+				<Trace message="Failed to combine {Event.possession1.name} with {Event.possession2.name} message={Event.combination.fail}"/>
+				<Call behaviourID="ShowPlayerBubble" scope="{Rooms.currentRoom}" message="{Event.combination.fail}"/>
+			</OnCombinationFail>
+			<OnCombinationUnknown>
+				<Trace message="I can't combinate a {Event.possession1.name} with a {Event.possession2.name}!"/>
+				<Call behaviourID="ShowPlayerBubble" scope="{Rooms.currentRoom}" message="They don't seem to fit together"/>
+			</OnCombinationUnknown>	
+		</Triggers>
+	</Backpack>
+	
+	<Quest id="timeMachineQuest" name="Inspector" active="true" complete="false" description="The professor has gone missing! We think he's built a time machine but has got stuck in the past! Fix the time machine and search for the professor."> 
+		<Objective name="1) Fix the fire place" id="fireplace" complete="false" active="false"/> 
+		<Objective name="2) Find the thre lenses for the telescope" id="telescope" complete="false" active="false"/> 
+		<Objective name="3) Repair the grandfather clock with three missing pendulums" id="timemachine" complete="false" active="false"/> 
+		<Triggers>
+			<OnBeginQuest>
+				<Trace message="Quest Begun"/>
+			</OnBeginQuest>
+			<OnCompleteQuest>
+				<Trace message="Quest Complete"/>
+			</OnCompleteQuest>
+			<OnBeginObjective>
+				<Trace message="Objective Begun '{Event.objective.name}'"/>
+			</OnBeginObjective>
+			<OnCompleteObjective>
+			</OnCompleteObjective> 
+		</Triggers>
+	</Quest>			
+	
+	<Achievements>
+		<Achievement id="visitsToFriends" name="Visits To Friends" score="0" suffix="Visits" description="How many times you have visited your friends">
+			<Trophy name="Pet About Towm" score="25" imageURL="images/trophies/visitsToFriends_1.png"/>
+			<Trophy name="Vizier of Visits" score="100" imageURL="images/trophies/visitsToFriends_2.png"/>
+			<Trophy name="Social Whirlwind" score="300" imageURL="images/trophies/visitsToFriends_3.png"/>
+		</Achievement>	
+		<Achievement id="playingCatch" name="Longest Sequence Of Ball Passes" score="15" suffix="Passes" description="How many times have you managed to catch the ball in a row">
+			<Trophy name="Playing Softball" score="15" imageURL="images/trophies/ballPasses_1.png"/>
+			<Trophy name="Playing Hardball" score="30" imageURL="images/trophies/ballPasses_2.png"/>
+			<Trophy name="Pro Baller" score="50" imageURL="images/trophies/ballPasses_3.png"/>
+		</Achievement>
+		<Achievement id="coinsSpent" name="Coins Spent" score="0" suffix="Spent Coins" description="The number of coins you've spent in the world">
+			<Trophy name="Window Shopper" score="500" imageURL="images/trophies/coinsSpent_1.png"/>
+			<Trophy name="Mall Rat" score="3000" imageURL="images/trophies/coinsSpent_2.png"/>
+			<Trophy name="Big Spender" score="10000" imageURL="images/trophies/coinsSpent_3.png"/>
+		</Achievement>		
+		<Triggers>
+			<OnAwardedTrophy>
+				<Trace message="Awarded trophy {Event.trophy.name} : {Event.achievement.name}"/>
+			</OnAwardedTrophy>	
+		</Triggers>				
+	</Achievements>	
+	
+	<Collections>
+		<Collection id="animalCollection" name="Animal Collection" description="Collect all the animals hidden around the world and get something super awesome when you complete the collection!">
+			<Collectable id="dog" name="Dog" imageURL="images/collections/animals/dog.png" quantity="0"/>
+			<Collectable id="elephant" name="Elephant" imageURL="images/collections/animals/elephant.png" quantity="0"/>
+			<Collectable id="lion" name="Lion" imageURL="images/collections/animals/lion.png" quantity="0"/>
+			<Collectable id="fox" name="Fox" imageURL="images/collections/animals/fox.png" quantity="0"/>
+			<Collectable id="panda" name="Panda" imageURL="images/collections/animals/panda.png" quantity="0"/>
+		</Collection>
+		<Collection id="foodCollection" name="Food Collection" description="Collect all the food hidden around the world and get something super coolio when you've collected them all!">
+			<Collectable id="coffee" name="Coffee" imageURL="images/collections/food/coffee.png" quantity="0"/>
+			<Collectable id="muffin" name="Muffin" imageURL="images/collections/food/muffin.png" quantity="0"/>
+			<Collectable id="sugar" name="Sugar" imageURL="images/collections/food/sugar.png" quantity="0"/>
+			<Collectable id="toast" name="Toast" imageURL="images/collections/food/toast.png" quantity="0"/>
+		</Collection>			 
+		<Triggers>
+			<OnFoundCollectable>
+				<Trace message="Found collectable {Event.collection.name} : {Event.collectable.name}"/>
+			</OnFoundCollectable>
+			<OnCompleteCollection>
+				<Trace message="Completed collection {Event.collection.name} : {Event.collectable.name}"/>
+			</OnCompleteCollection>			
+		</Triggers>	
+	</Collections>
+
+
+	
+	
+	
+	
+	<Minigames>
+		<Minigame id="flex" name="Flex game" test="{Rooms.session.backpack}" url="[base.url]games/SampleMinigame.swf" skin="com.dubitplatform.views.MinigameTitleWindow" targetContainer="minigameContainer"/>
+		<Minigame id="flash" name="Flash game" url="[base.url]games/FlashMinigame.swf" skin="com.dubitplatform.views.MinigameTitleWindow" targetContainer="minigameContainer"/>
+		
+		<Triggers>
+			<onMinigameClosed>
+				<CreateNotification title="Points awarded!" body="The {Event.minigame.name} awarded you {Event.minigame.score} points" can_remove="true"/>
+			</onMinigameClosed>
+		</Triggers>
+	</Minigames>
+	
+	<Menus>
+		<ContextMenu id="playerMenu" track="true" offsetX="350" offsetY="200" skin="com.dubitplatform.views.ContextMenuSkin">
+			<MenuItem id="onShowProfile" text="Show profile" toolTip="Shows the selected user's profile"/>
+		</ContextMenu>
+	</Menus>
+	
+	<Profiles>
+		<Profile id="playerProfile" skin="com.dubitplatform.views.ProfileSkinTitleWindow" targetContainer="shopContainer"/>
+	</Profiles>
+	
+</SessionRoom>

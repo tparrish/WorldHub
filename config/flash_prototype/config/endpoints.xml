@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Endpoints>
+	<Endpoint path="10.0.0.157:1935" displayName="local 10.0.0.157" numOfUsers="5" userCapacity="10"/>
+</Endpoints>
+
+
+

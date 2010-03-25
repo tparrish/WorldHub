@@ -16,7 +16,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql
+  database: worldhub_production
+  username: dubit
+  password: d0D6@r==1
   pool: 5
   timeout: 5000

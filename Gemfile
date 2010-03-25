@@ -8,6 +8,7 @@ gem "inherited_resources"
 gem "rubyzip2"
 gem "randexp"
 gem "configr"
+gem "roxml"
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"

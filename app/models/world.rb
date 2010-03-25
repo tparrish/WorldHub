@@ -46,14 +46,7 @@ class World < ActiveRecord::Base
 
     environment = environments.environments.first
     
-    new_properties = []
-    
-    environment.properties.each do | property |
-
-      new_properties << property unless ["setting.useServer", "app.name", "path.game-server"].include?(property.name)
-    end
-    
-    environment.properties = new_properties
+    environment.properties = environment.properties.reject { | property | ["setting.useServer", "app.name", "path.game-server"].include?(property.name) }
     environment.properties << Properties::Property.new("setting.useServer", "true")
     environment.properties << Properties::Property.new("app.name", slug)
     environment.properties << Properties::Property.new("path.game-server", Configuration.world.nexus_endpoint)

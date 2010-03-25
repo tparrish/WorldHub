@@ -1,0 +1,4 @@
+world:
+    base_path: "/opt/world_hub_worlds"
+    prototype_path: "config/flash_prototype"
+    nexus_endpoint: "worldhub.dubitplatform.com:1937"

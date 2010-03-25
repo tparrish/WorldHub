@@ -29,10 +29,4 @@ Worldhub::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
-  Configuration = Configr::Configuration.configure do |config|
-    config.world.base_path  = "/opt/world_hub_worlds"
-    config.world.prototype_path = "config/flash_prototype"
-    config.world.nexus_endpoint = "worldhub.dubitplatform.com:1937"
-  end
 end

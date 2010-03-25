@@ -16,10 +16,4 @@ Worldhub::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
-  
-  Configuration = Configr::Configuration.configure do |config|
-    config.world.base_path  = "/tmp/worlds"
-    config.world.prototype_path = "config/flash_prototype"
-    config.world.nexus_endpoint = "worldhub.dubitplatform.com:1937"
-  end
 end

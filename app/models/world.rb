@@ -1,10 +1,4 @@
-require 'zip/zip'
-
 class World < ActiveRecord::Base
-  
-  cattr_accessor :base_path
-  
-  delegate :base_path, :to => self
   
   ZIP_REQUIRED_FILES = {
     "avatar/stand.swf" => 'a stand animation for the avatar',
@@ -15,11 +9,7 @@ class World < ActiveRecord::Base
   }
   
   before_save :validate_zip, :on => :create
-  before_save :create_slug, :on => :create
-
-  after_save :copy_prototype, :on => :create
-  after_save :install_zip, :on => :create
-  
+  before_save :create_slug, :on => :create  
   
   validates_uniqueness_of :slug
   
@@ -30,11 +20,51 @@ class World < ActiveRecord::Base
   end
   
   def asset_path(file = "/")
-    File.join(base_path, self.id.to_s, file)
+    File.join(Configuration.world.base_path, self.id.to_s, file)
   end
   
   def asset_uri(file = "")
-    "world_assets/#{self.id}"
+    "/world_assets/#{self.id}/#{file}"
+  end
+  
+  def to_param
+    slug
+  end
+  
+  def includes_platform_swf?
+    File.exist?(asset_path("PlatformDemo.swf"))
+  end
+  
+  def platform_swf_uri
+    asset_uri("PlatformDemo.swf")
+  end
+  
+  def insert_default_properties!
+    #Now we need to insert custom elements into the properties.xml
+
+    environments = Properties::Environments.from_xml(File.read(asset_path("config/properties.xml")))
+
+    environment = environments.environments.first
+    
+    new_properties = []
+    
+    environment.properties.each do | property |
+
+      new_properties << property unless ["setting.useServer", "app.name", "path.game-server"].include?(property.name)
+    end
+    
+    environment.properties = new_properties
+    environment.properties << Properties::Property.new("setting.useServer", "true")
+    environment.properties << Properties::Property.new("app.name", slug)
+    environment.properties << Properties::Property.new("path.game-server", Configuration.world.nexus_endpoint)
+    
+    environments.current = environments.environments.first.type
+    environments.environments = [environment]
+    
+    doc = ROXML::XML::Document.new
+    doc.root = environments.to_xml
+    doc.save(asset_path("config/properties.xml"))
+    
   end
   
   protected
@@ -60,17 +90,5 @@ class World < ActiveRecord::Base
   
   def create_slug
     self.slug = /\d{4}\w{3}/.gen
-  end
-  
-  def copy_prototype
-    FileUtils.cp_r Configuration.world.prototype_path asset_path
-  end
-  
-  def install_zip
-    Zip::ZipFile.open(zip.path).each do | file |
-      to = File.join(base_path, self.id.to_s, file.name)
-      FileUtils.mkdir_p(File.dirname(to))
-      file.extract(asset_path())
-    end
   end
 end

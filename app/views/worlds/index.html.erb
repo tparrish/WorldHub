@@ -1,2 +1,5 @@
 <h2>Virtual Worlds</h2>
 <%= render :partial => "form", :locals => {:world => @world} %>
+<ul>
+	<%= render :partial => 'item', :collection => @worlds %>
+</ul>

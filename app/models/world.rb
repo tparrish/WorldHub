@@ -1,8 +1,6 @@
 class World < ActiveRecord::Base
   
   ZIP_REQUIRED_FILES = {
-    "avatar/stand.swf" => 'a stand animation for the avatar',
-    "avatar/walk.swf" => 'a walk animation for the avatar',
     "config/logging.xml" => 'logging configuration',
     "config/properties.xml" => 'a properties file',
     "config/rooms/session.xml" => 'a session room GAML definition'
@@ -42,7 +40,14 @@ class World < ActiveRecord::Base
   def insert_default_properties!
     #Now we need to insert custom elements into the properties.xml
 
-    environments = Properties::Environments.from_xml(File.read(asset_path("config/properties.xml")))
+    file = asset_path("config/properties.xml")
+    
+    unless File.exist?(file)
+      Rails.logger.warn "found no configuration file"
+      return
+    end
+
+    environments = Properties::Environments.from_xml(File.read(file))
 
     environment = environments.environments.first
     

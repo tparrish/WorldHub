@@ -20,6 +20,6 @@ Worldhub::Application.configure do
   Configuration = Configr::Configuration.configure do |config|
     config.world.base_path  = "/tmp/worlds"
     config.world.prototype_path = "config/flash_prototype"
-    config.world.nexus_endpoint = "localhost:1937"
+    config.world.nexus_endpoint = "worldhub.dubitplatform.com:1937"
   end
 end

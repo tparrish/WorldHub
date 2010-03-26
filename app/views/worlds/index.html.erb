@@ -1,2 +1,9 @@
 <h2>Virtual Worlds</h2>
 <%= render :partial => "form", :locals => {:world => @world} %>
+
+<% unless user_world_ids.empty? %>
+	<h3>Worlds you've made</h3>
+	<ul>
+		<%= render :partial => 'item', :collection => user_worlds %>
+	</ul>
+<% end %>

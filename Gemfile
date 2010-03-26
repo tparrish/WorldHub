@@ -9,6 +9,8 @@ gem "rubyzip2"
 gem "randexp"
 gem "configr"
 gem "roxml"
+gem "bitly"
+
 group :producton do
 	gem "mysql"
 end

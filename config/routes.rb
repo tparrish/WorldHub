@@ -1,5 +1,9 @@
 Worldhub::Application.routes.draw do |map|
-  resources :worlds
+  resources :worlds do
+    member do
+      get :manage
+    end
+  end
 
   root :to => "worlds#index"
 

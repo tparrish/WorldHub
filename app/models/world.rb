@@ -9,6 +9,10 @@ class World < ActiveRecord::Base
   before_save :validate_zip, :on => :create
   before_save :create_slug, :on => :create  
   
+  after_create :copy_prototype
+  after_save :copy_zip
+  after_save :insert_default_properties!
+  
   validates_uniqueness_of :slug
   
   attr_accessor :zip
@@ -66,6 +70,22 @@ class World < ActiveRecord::Base
   end
   
   protected
+  
+  def copy_prototype
+    FileUtils.cp_r Configuration.world.prototype_path, asset_path
+  end
+  
+  def copy_zip
+    return if zip.nil?
+    
+    #Now copy across the zip contents
+    Zip::ZipFile.open(zip.path).each do | file |
+      to = asset_path(file.name)
+      FileUtils.mkdir_p(File.dirname(to))
+      FileUtils.rm to, :force => true #Remove the old file if it is there
+      file.extract(to)
+    end
+  end
   
   def validate_zip
     if zip.nil?

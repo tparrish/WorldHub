@@ -1,0 +1,19 @@
+<h1><%= @world.name %></h1>
+<span class="author">by <%= @world.author %></span>
+<% if flash[:message] %>
+	<p class="message"><%= flash[:message] %></p>
+<% end %>
+<div class="links">
+	<%= link_to "Enter #{@world.name}", world_path(@world) %>
+</div>
+<h2>Sharing</h2>
+<div class="sharing">
+	<p>Here's a bitly link to share with other users <strong><%= link_to @world.name, bitly_world_url(@world) %></strong></p>
+	<% stats = bitly_world_stats(@world) %>
+	<p>You've had <%= stats[:clicks] %> clicks so far from these referrers<p>
+	<ul>
+		<% stats[:referrers].each_pair do | referer, count | %>
+			<li><% link_to referer %>&nbsp;<%= count %></li>
+		<% end %>
+	</ul>
+</div>

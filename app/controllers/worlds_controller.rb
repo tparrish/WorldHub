@@ -17,6 +17,8 @@ class WorldsController < ApplicationController
       cookies[:worlds] = (cookies[:worlds].nil? ? @world.id.to_s : cookies[:worlds]+" "+@world.id.to_s)
       
       #Now email the appropriate authorities
+      WorldCreation.confirmation(@world).deliver
+      WorldCreation.notify(@world).deliver
       
       redirect_to manage_world_path(@world)
     else

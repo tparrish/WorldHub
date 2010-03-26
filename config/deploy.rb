@@ -18,6 +18,7 @@ namespace :deploy do
     update_code
     finalize_update
     symlink
+    bundler
     migrate
     restart
     cleanup
@@ -27,8 +28,8 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt"
   end  
   
-  task :xapian do
-    run "cd #{current_path} && rake search:index RAILS_ENV=production"
+  task :bundler do
+    run "cd #{current_path} && bundle install"
   end 
   
 end

@@ -10,7 +10,7 @@
 <div class="sharing">
 	<p>Here's a <%= link_to "bit.ly link", bitly_world_url(@world) %> link to share with other users. We can use this to tell you how many people visit your world</p>
 	<% stats = bitly_world_stats(@world) %>
-	<p>So far you've had <%= stats[:clicks] %> clicks so far from these referrers<p>
+	<p>So far you've had <%= stats[:clicks] %> clicks, and the users have come from these sites<p>
 	<ul>
 		<% stats[:referrers].each_pair do | referer, count | %>
 			<li><% link_to referer %>&nbsp;<%= count %></li>

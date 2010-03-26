@@ -1,14 +1,18 @@
-<div id="upload">
-	<% form_for(:world, :html => {:multipart => true}) do | f | %>
+<div>
+	<% form_for(:world, :html => {:multipart => true}, :html => {:id => 'upload'}) do | f | %>
 		<%= f.error_messages %>
 		
 		<p>
 			<%= f.label :name, "World name" %>
-			<%= f.text_field :name %>
+			<%= f.text_field :name, :class => :required %>
 		</p>
 		<p>
 			<%= f.label :author, "Your name" %>
-			<%= f.text_field :author %>
+			<%= f.text_field :author, :class => :required %>
+		</p>
+		<p>
+			<%= f.label :email, "Your email address" %>
+			<%= f.text_field :email, :class => [:required, :email] %>
 		</p>
 		<p>
 			<%= f.label :zip, "Upload a zip of your platform editor files here" %>

@@ -16,6 +16,8 @@ class WorldsController < ApplicationController
       flash[:message] = "Congratulations you're world is now ready!"
       cookies[:worlds] = (cookies[:worlds].nil? ? @world.id.to_s : cookies[:worlds]+" "+@world.id.to_s)
       
+      #Now email the appropriate authorities
+      
       redirect_to manage_world_path(@world)
     else
       render :action => 'new'

@@ -15,7 +15,9 @@ class World < ActiveRecord::Base
   
   validates_uniqueness_of :slug
   
-  attr_accessor :zip
+  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create
+  
+  attr_accessor :zip, :email
   
   def zip=(file)
     @zip = file

@@ -21,25 +21,6 @@ p {
 	padding-top:5px;
 }
 
-label {
-	font-size: 12px;
-	font-weight: bold;
-	padding-bottom: 3px;
-}
-
-form {
-	background-color: #F2F2F2;
-	padding: 15px;
-}
-
-input {
-	display: block;
-}
-
-input.submit {
-	margin-top: 30px;
-}
-
 a,
 a:active,
 a:visited {
@@ -108,3 +89,29 @@ a:hover {
 }
 
 /* Forms */
+
+label {
+	font-size: 12px;
+	font-weight: bold;
+	padding-bottom: 3px;
+	display: block;
+}
+
+form {
+	background-color: #F2F2F2;
+	padding: 15px;
+}
+
+input {
+	
+}
+
+input.submit {
+	margin-top: 30px;
+}
+
+label.error {
+	display: inline;
+	color: red;
+	font-weight: normal;
+}

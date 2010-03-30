@@ -11,7 +11,7 @@ class World < ActiveRecord::Base
   before_save :validate_zip, :on => :create
   before_save :create_slug, :on => :create  
   
-  after_create :copy_prototype
+  after_save :copy_prototype, :on => :create
   after_save :copy_zip
   after_save :insert_default_properties!
   

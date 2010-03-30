@@ -10,6 +10,7 @@ gem "randexp"
 gem "configr"
 gem "roxml"
 gem "bitly"
+gem "rspec"
 
 group :producton do
 	gem "mysql"

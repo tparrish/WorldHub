@@ -69,4 +69,8 @@ describe World do
     
     own.should_not == ignored_prototype
   end
+  
+  pending "should rewrite properties file to include the hostname from the config file"
+  pending "should insert app.name into config file"
+  pending "should use own platform implementation if PlatformDemo.swf present"
 end

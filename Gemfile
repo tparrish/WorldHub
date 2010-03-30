@@ -10,7 +10,7 @@ gem "randexp"
 gem "configr"
 gem "roxml"
 gem "bitly"
-gem "rspec"
+gem "rspec-rails", ">= 2.0.0.beta.1"
 
 group :producton do
 	gem "mysql"

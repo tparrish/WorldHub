@@ -1,3 +1,5 @@
+require 'zip/zip'
+
 class World < ActiveRecord::Base
   
   ZIP_REQUIRED_FILES = {
@@ -100,7 +102,8 @@ class World < ActiveRecord::Base
             self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry(required_file).nil?
           end
         end
-      rescue
+      rescue => e
+        Rails.logger.warn("Invalid zip file '#{e.to_s}'")
         self.errors.add(:zip, "must be a valid zip file")
       end
     end

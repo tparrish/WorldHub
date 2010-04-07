@@ -4,4 +4,3 @@ log/*.log
 tmp/**/*
 tmp
 Thumbs.db
-.DS_Store

@@ -34,9 +34,9 @@ a:hover {
 
 /* Header */
 #header {
-	background-image: url('http://dubitplatform.com/storage/Dubit%20Virtual%20World%20Platform.jpg');
+	background-image: url('/images/header.png');
 	background-repeat: no-repeat;
-	height: 150px;
+	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 928px;

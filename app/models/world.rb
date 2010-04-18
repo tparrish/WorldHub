@@ -97,6 +97,7 @@ class World < ActiveRecord::Base
       false
     else
       begin
+        require 'zip/zip'
         Zip::ZipFile.open(zip.path) do | file |
           ZIP_REQUIRED_FILES.each_pair do | required_file, reason |
             self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry(required_file).nil?

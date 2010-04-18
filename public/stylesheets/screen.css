@@ -8,7 +8,6 @@ html, body, table {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	text-transform: uppercase;
 	color: black;
 	font-size: 1.6em;
 	line-height: 1.3em;
@@ -34,12 +33,12 @@ a:hover {
 
 /* Header */
 #header {
-	background-image: url('http://dubitplatform.com/storage/Dubit%20Virtual%20World%20Platform.jpg');
+	background-image: url('/images/header.png');
 	background-repeat: no-repeat;
-	height: 150px;
+	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 928px;
+	width: 930px;
 }
 
 #header h1 {
@@ -52,12 +51,12 @@ a:hover {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: white;
-	width: 928px;
+	width: 930px;
 	overflow: hidden
 }
 
 #content {
-	padding: 0 50px 50px 50px;
+	padding: 0 60px 50px 60px;
 }
 
 #footer {
@@ -98,8 +97,7 @@ label {
 }
 
 form {
-	background-color: #F2F2F2;
-	padding: 15px;
+
 }
 
 input {

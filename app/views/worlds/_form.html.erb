@@ -1,6 +1,12 @@
 <div>
-	<% form_for(:world, :html => {:multipart => true,:id => 'upload'}) do | f | %>
-		<%= f.error_messages %>
+	<%= form_for(:world, :html => {:multipart => true,:id => 'upload'}) do | f | %>
+		<% if @world && @world.errors %>
+			<ul>
+				<%= @world.errors.each_pair do | key, value | %>
+				<li><%= key.to_s.humanize %> <%= value %></li>
+				<% end %>
+			</ul>
+		<% end %>
 		
 		<p>
 			<%= f.label :name, "World name" %>

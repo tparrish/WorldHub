@@ -1,13 +1,11 @@
-require 'zip/zip'
-
 class World < ActiveRecord::Base
-  
   ZIP_REQUIRED_FILES = {
     "config/logging.xml" => 'logging configuration',
     "config/properties.xml" => 'a properties file',
     "config/rooms/session.xml" => 'a session room GAML definition'
   }
   
+  before_save :get_prefix, :on => :create
   before_save :validate_zip, :on => :create
   before_save :create_slug, :on => :create  
   
@@ -79,12 +77,34 @@ class World < ActiveRecord::Base
     FileUtils.cp_r Configuration.world.prototype_path, asset_path
   end
   
+  def get_prefix
+    entries = []
+    @prefix = nil
+    Zip::ZipFile.foreach(zip.path) do | entry |
+      
+      next if entry.name.starts_with?('__') || entry.name.starts_with?('.')
+      
+      @prefix = "#{entry.name.split('/').first}/" if @prefix == nil 
+
+      entries << entry.name
+    end
+    
+    entries.each do | entry |  
+      unless entry.starts_with?(@prefix)
+        @prefix = "" 
+        break
+      end
+    end
+    
+    @prefix = "" if @prefix.nil? #If there were no entries set this to an empty string
+  end
+  
   def copy_zip
     return if zip.nil?
     
     #Now copy across the zip contents
-    Zip::ZipFile.open(zip.path).each do | file |
-      to = asset_path(file.name)
+    Zip::ZipFile.foreach(zip.path) do | file |
+      to = asset_path(file.name[@prefix.length, file.name.length])
       FileUtils.mkdir_p(File.dirname(to))
       FileUtils.rm to, :force => true #Remove the old file if it is there
       file.extract(to)
@@ -96,17 +116,16 @@ class World < ActiveRecord::Base
       self.errors.add(:zip, "Must be uploaded")
       false
     else
-      begin
-        require 'zip/zip'
+      # begin
         Zip::ZipFile.open(zip.path) do | file |
           ZIP_REQUIRED_FILES.each_pair do | required_file, reason |
-            self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry(required_file).nil?
+            self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry("#{@prefix}#{required_file}").nil?
           end
         end
-      rescue => e
-        Rails.logger.warn("Invalid zip file '#{e.to_s}'")
-        self.errors.add(:zip, "must be a valid zip file")
-      end
+      # rescue => e
+      #   Rails.logger.warn("Invalid zip file '#{e.to_s}'")
+      #   self.errors.add(:zip, "must be a valid zip file")
+      # end
     end
     
     return self.errors.empty?

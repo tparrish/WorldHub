@@ -115,3 +115,13 @@ label.error {
 	font-weight: normal;
 	margin-left: 5px;
 }
+
+#errors {
+	border: 1px solid red;
+	background-color: #FADEE4;
+}
+
+#errors li {
+	display: block;
+	margin-left: 10px;
+}

@@ -15,6 +15,7 @@ class World < ActiveRecord::Base
   
   validates_uniqueness_of :slug
   
+  validates_presence_of :zip
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create
   
   attr_accessor :zip, :email
@@ -78,6 +79,7 @@ class World < ActiveRecord::Base
   end
   
   def get_prefix
+    
     entries = []
     @prefix = nil
     Zip::ZipFile.foreach(zip.path) do | entry |
@@ -100,7 +102,7 @@ class World < ActiveRecord::Base
   end
   
   def copy_zip
-    return if zip.nil?
+    return false if zip.nil?
     
     #Now copy across the zip contents
     Zip::ZipFile.foreach(zip.path) do | file |

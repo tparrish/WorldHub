@@ -73,4 +73,5 @@ describe World do
   pending "should rewrite properties file to include the hostname from the config file"
   pending "should insert app.name into config file"
   pending "should use own platform implementation if PlatformDemo.swf present"
+  pending "should unpack assets correctly if they are in a subdirectory"
 end

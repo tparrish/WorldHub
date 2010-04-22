@@ -1,5 +1,28 @@
-<div>
+<div>	
 	<%= form_for(:world, :html => {:multipart => true,:id => 'upload'}) do | f | %>
+
+	<% content_for :head do %>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+			      $("#zip_input").uploadify({
+			      	'uploader': '/flash/uploadify.swf',
+			      	'script': $("#upload").attr('action'),
+			      	'scriptData': { 'format': 'json', 'authenticity_token': encodeURIComponent('<%= form_authenticity_token if protect_against_forgery? %>'), '_worldhub_session' : 'BAh7ByIQX2NzcmZfdG9rZW4iMThRaDNVMFVpSkl5MG9WTnNCbThVaXRaMjRIdk95SEpNR1c3akI3RTlkZVk9Ig9zZXNzaW9uX2lkIiUzN2YwNjE5YzQ4OWY0ODRkZmUwNjEwNjE2ZDU3MGVlNQ' },
+			      	'fileDataName': "world[zip]",
+			      	//'scriptAccess': 'always', // Incomment this, if for some reason it doesn't work
+			      	'auto': true,
+			      	'fileDesc': 'Zip files only',
+			      	'fileExt': '*.zip',
+			      	'width': 120, 
+			      	'height': 24,
+			      	'cancelImg': '/images/cancel.png',
+			      	'onComplete': function(event, data) { $.getScript(location.href) }, // We assume that we can refresh the list by doing a js get on the current page
+			    		'displayData': 'speed'
+			      });
+			    });
+		</script>
+	<% end %>
+
 		<% if @world && @world.errors %>
 			<ul id="errors">
 				<% @world.errors.each_pair do | key, value | %>
@@ -22,7 +45,7 @@
 		</p>
 		<p>
 			<%= f.label :zip, "Upload a zip of your platform editor files here" %>
-			<%= f.file_field :zip %>
+			<%= f.file_field :zip, :id => 'zip_input' %>
 		</p>
 		
 		<%= f.submit("Upload", :class => "submit") %>

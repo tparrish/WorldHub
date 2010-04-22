@@ -1,8 +1,9 @@
 <html>
 	<head>
 		<title>Dubit Multiplayer World Hub</title>
-		<%= javascript_include_tag 'swfobject', 'jquery', 'jquery.validate', 'application' %>
-		<%= stylesheet_link_tag 'reset', 'screen' %>
+		<%= javascript_include_tag 'swfobject', 'jquery', 'jquery.validate', 'jquery.uploadify', 'application' %>
+		<%= stylesheet_link_tag 'reset', 'screen', 'uploadify' %>
+		<%= yield :head %>
 	</head>
 	<body>
 		<div id="header">

@@ -14,12 +14,7 @@
 		<filters>
 			<filter>uk.co.dubit.platform.scriptEngine.behaviour.Behaviour</filter>
 		</filters>
-	</logTarget>	
-	<logTarget type="mx.logging.targets.TraceTarget" level="WARN" includeDate="false" includeTime="false" includeCategory="true" includeLevel="true">
-		<filters>
-			<filter>*</filter>
-		</filters>
-	</logTarget>		
+	</logTarget>
 </logging>
 
 

@@ -1,0 +1,7 @@
+world:
+    base_path: "/tmp/test_worlds"
+    prototype_path: "config/flash_prototype"
+    nexus_endpoint: "nexus.endpoint"
+bitly:
+    username: dubitplatform
+    api_key: R_a42fdf5201323fb9e4b2683f9049e9ff

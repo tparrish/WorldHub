@@ -10,10 +10,11 @@ describe World do
     World.new.should_not be_valid
   end
   
-  it "should be valid with an email address and a unique slug" do
+  it "should be valid with an email address, a unique slug and a zip" do
     world = World.new
     world.email = "test@biscuits.com"
     world.slug = "banana"
+    world.zip = File.open(File.join(File.dirname(__FILE__),'invalid.zip'))
     world.should be_valid
   end
   
@@ -70,8 +71,41 @@ describe World do
     own.should_not == ignored_prototype
   end
   
-  pending "should rewrite properties file to include the hostname from the config file"
-  pending "should insert app.name into config file"
-  pending "should use own platform implementation if PlatformDemo.swf present"
-  pending "should unpack assets correctly if they are in a subdirectory"
+  it "should rewrite properties file to include the hostname from the config file and the app.name" do
+    world = World.new
+    world.email = "test@biscuits.com"
+    world.slug = "banana"
+    world.zip = File.open(File.join(File.dirname(__FILE__),'valid.zip'))
+    world.save.should == true
+    
+    properties = Properties::Environments.from_xml(File.read(world.asset_path('config/properties.xml')))
+    properties = properties.environments.first.properties
+    properties = Hash[*properties.collect{ | p | [p.name, p.value]}.flatten]
+    
+    properties['setting.useServer'].should == "true"
+    properties['app.name'].should == world.slug
+    properties['path.game-server'].should == Configuration.world.nexus_endpoint
+  end
+  
+  it "should use own platform implementation if PlatformDemo.swf present" do
+    world = World.new
+    world.email = "test@biscuits.com"
+    world.slug = "banana"
+    world.zip = File.open(File.join(File.dirname(__FILE__),'own_swf.zip'))
+    world.save
+    
+    world.includes_platform_swf?.should == true
+    world.platform_swf_uri.should == "#{world.asset_uri}PlatformDemo.swf"
+  end
+  
+  it "should unpack assets correctly if they are in a subdirectory" do
+    world = World.new
+    world.email = "test@biscuits.com"
+    world.slug = "banana"
+    world.zip = File.open(File.join(File.dirname(__FILE__),'subdirectory.zip'))
+    world.save.should == true
+    
+    File.readable?(world.asset_path('config/properties.xml')).should == true
+    File.exists?(world.asset_path('config/properties.xml')).should == true
+  end
 end

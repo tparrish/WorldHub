@@ -15,14 +15,10 @@ class World < ActiveRecord::Base
   
   validates_uniqueness_of :slug
   
-  validates_presence_of :zip
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create
+  validates_presence_of :zip, :message => "Must be uploaded", :on => :create
   
   attr_accessor :zip, :email
-  
-  def zip=(file)
-    @zip = file
-  end
   
   def asset_path(file = "/")
     File.join(Configuration.world.base_path, self.id.to_s, file)
@@ -82,7 +78,8 @@ class World < ActiveRecord::Base
     
     entries = []
     @prefix = nil
-    Zip::ZipFile.foreach(zip.path) do | entry |
+    
+    Zip::ZipFile.foreach(self.zip.path) do | entry |
       
       next if entry.name.starts_with?('__') || entry.name.starts_with?('.')
       
@@ -98,14 +95,14 @@ class World < ActiveRecord::Base
       end
     end
     
-    @prefix = "" if @prefix.nil? #If there were no entries set this to an empty string
+    @prefix = "" if @prefix.nil? || @prefix.starts_with?("config/") || @prefix.starts_with?("rooms/") #If there were no entries set this to an empty string
   end
   
   def copy_zip
-    return false if zip.nil?
+    return false if self.zip.nil?
     
     #Now copy across the zip contents
-    Zip::ZipFile.foreach(zip.path) do | file |
+    Zip::ZipFile.foreach(self.zip.path) do | file |
       to = asset_path(file.name[@prefix.length, file.name.length])
       FileUtils.mkdir_p(File.dirname(to))
       FileUtils.rm to, :force => true #Remove the old file if it is there
@@ -114,23 +111,18 @@ class World < ActiveRecord::Base
   end
   
   def validate_zip
-    if zip.nil?
-      self.errors.add(:zip, "Must be uploaded")
-      false
-    else
-      # begin
-        Zip::ZipFile.open(zip.path) do | file |
-          ZIP_REQUIRED_FILES.each_pair do | required_file, reason |
-            self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry("#{@prefix}#{required_file}").nil?
-          end
+    begin
+      Zip::ZipFile.open(self.zip.path) do | file |
+        ZIP_REQUIRED_FILES.each_pair do | required_file, reason |
+          self.errors.add(:zip, "must contain #{reason} at #{required_file}") if file.find_entry("#{@prefix}#{required_file}").nil?
         end
-      # rescue => e
-      #   Rails.logger.warn("Invalid zip file '#{e.to_s}'")
-      #   self.errors.add(:zip, "must be a valid zip file")
-      # end
+      end
+    rescue => e
+       Rails.logger.warn("Invalid zip file '#{e.to_s}'")
+       self.errors.add(:zip, "must be a valid zip file")
     end
     
-    return self.errors.empty?
+    self.errors.empty?
   end
   
   def create_slug

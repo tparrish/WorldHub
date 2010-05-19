@@ -3,6 +3,9 @@ Worldhub::Application.routes.draw do |map|
     member do
       get :manage
     end
+    collection do
+      post :upload
+    end
   end
 
   root :to => "worlds#index"

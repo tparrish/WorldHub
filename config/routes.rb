@@ -2,6 +2,7 @@ Worldhub::Application.routes.draw do |map|
   resources :worlds do
     member do
       get :manage
+      post :embed
     end
     collection do
       post :upload

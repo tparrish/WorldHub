@@ -2,33 +2,6 @@
 	
 	<%= form_for(:world, :html => {:multipart => true,:id => 'upload'}) do | f | %>
 
-	<% content_for :head do %>
-		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {
-				
-				$("input.submit").attr("disabled", "disabled");
-				var token = $("input[name=upload_token]").val();
-			      $("#zip_input").uploadify({
-			      	'uploader': '/flash/uploadify.swf',
-			      	'script': '<%= upload_worlds_path %>',
-			      	'fileDataName': "world[zip]",
-			      	'scriptData': { 'upload_token': token },
-			      	//'scriptAccess': 'always', // Incomment this, if for some reason it doesn't work
-			      	'auto': true,
-			      	'fileDesc': 'Zip files only',
-			      	'fileExt': '*.zip',
-			      	'width': 120, 
-			      	'height': 24,
-			      	'cancelImg': '/images/cancel.png',
-			      	'onComplete': function(event, data) { 
-						$("input.submit").removeAttr("disabled");
-					}, // We assume that we can refresh the list by doing a js get on the current page
-			    	'displayData': 'speed'
-			      });
-			    });
-		</script>
-	<% end %>
-
 		<% if @world && @world.errors %>
 			<ul id="errors">
 				<% @world.errors.each_pair do | key, value | %>
@@ -38,6 +11,7 @@
 		<% end %>
 		
 		<%= hidden_field_tag :upload_token, /\d{10}\w{5}/.gen  %>
+		<%= hidden_field_tag :upload_path, upload_worlds_path  %>
 		<p>
 			<%= f.label :name, "World name" %>
 			<%= f.text_field :name, :class => :required %>

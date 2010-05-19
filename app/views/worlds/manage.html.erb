@@ -6,6 +6,22 @@
 <div class="links">
 	<%= link_to "Enter #{@world.name}", world_path(@world) %>
 </div>
+<h2>Embedding</h2>
+<div class="embedding">
+	
+	<%= form_for :embed, :url => embed_world_path(@world), :html => {:id => 'embedder'} do | f | %>
+			<label>Dimensions</label>&nbsp;<%= f.text_field :width, :value => 750, :maxlength => 4, :class => 'dimension' %>&nbsp;x&nbsp;<%= f.text_field :height, :value => 560, :maxlength => 4, :class => 'dimension' %>	
+		   	<%= f.label :fullscreen, "Show fullscreen?"%>&nbsp;<%= f.check_box :fullscreen, :class => 'fullscreen' %>
+			&nbsp;<%= f.submit("Generate") %>
+
+	<% end %>
+	
+	<fieldset>
+		<legend>Embed code</legend>
+		<%= text_area_tag :code, (@embed ? @embed.code : ''), :width => 400, :height => 50, :class => 'code', :id => 'embed_code' %>
+	</fieldset>
+</div>
+
 <h2>Sharing</h2>
 <div class="sharing">
 	<p>Here's a <%= link_to "bit.ly link", bitly_world_url(@world) %> link to share with other users. We can use this to tell you how many people visit your world</p>

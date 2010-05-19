@@ -75,6 +75,7 @@ class World < ActiveRecord::Base
   end
   
   def get_prefix
+    return if self.zip.nil?
     
     entries = []
     @prefix = nil
@@ -99,7 +100,7 @@ class World < ActiveRecord::Base
   end
   
   def copy_zip
-    return false if self.zip.nil?
+    return if self.zip.nil?
     
     #Now copy across the zip contents
     Zip::ZipFile.foreach(self.zip.path) do | file |
@@ -111,6 +112,8 @@ class World < ActiveRecord::Base
   end
   
   def validate_zip
+    return if self.zip.nil?
+    
     begin
       Zip::ZipFile.open(self.zip.path) do | file |
         ZIP_REQUIRED_FILES.each_pair do | required_file, reason |

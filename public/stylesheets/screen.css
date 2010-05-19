@@ -125,3 +125,26 @@ label.error {
 	display: block;
 	margin-left: 10px;
 }
+
+/* Embedding */
+
+.embedding label {
+	display: inline;
+}
+
+.embedding input {
+	display: inline;
+}
+
+.embedding .code {
+	width: 400px;
+	height: 125px;
+}
+
+.embedding input.dimension {
+	border: 1px solid black;
+}
+
+.embedding input.dimension:disabled {
+	background-color: #E1E1E1;
+}
